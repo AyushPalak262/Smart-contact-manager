@@ -47,19 +47,20 @@ public class UserController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	//method for adding common data to response
-	@ModelAttribute
-	public void addCommonData(Model model,Principal principal) {
-		String userName=principal.getName();
-		System.out.println("USERNAME " +userName);
-		
-		
-		//get the user using username(email)
-		User user = userRepository.getUserByUserName(userName);
-		
-		System.out.println("USER "+user);
-		model.addAttribute("user",user);
+	
+	  @ModelAttribute public void addCommonData(Model model,Principal principal) {
+	  String userName=principal.getName(); 
+	  System.out.println("USERNAME "+userName);
+	  
+	  
+	  //get the user using username(email) 
+	  User user =  userRepository.getUserByUserName(userName);
+	  
+	  System.out.println("USER "+user); 
+	  model.addAttribute("user",user);
+	  
+	  }
 
-	}
 	//dashboard home
 	@RequestMapping("/index")
 	public String dashboard(Model model,Principal principal)
@@ -83,7 +84,6 @@ public class UserController {
 	
 	@PostMapping("/process-contact")
 	public String processContact(@ModelAttribute Contact contact,
-			@RequestParam("profileImage") MultipartFile file,
 			Principal principal,
 			HttpSession session) {
 		try {
@@ -93,26 +93,28 @@ public class UserController {
 			
 			//processing and uploading file
 			
-			if(file.isEmpty()) {
-				//if the file is empty the try our message
-				System.out.println("File is Empty");
-				contact.setImage("contact.png");
-				
-			}else {
-				contact.setImage(file.getOriginalFilename());
-				
-				File savefile = new ClassPathResource("static/img").getFile();
-				
-				Path path = Paths.get(savefile.getAbsolutePath()+File.separator+file.getOriginalFilename());
-				
-				Files.copy(file.getInputStream(),path ,StandardCopyOption.REPLACE_EXISTING );
-				
-				System.out.println("Image is uploaded");
-				
-			}
+//			if(file.isEmpty()) {
+//				//if the file is empty the try our message
+//				System.out.println("File is Empty");
+//				contact.setImage("contact.png");
+//				
+//			}else {
+//				contact.setImage(file.getOriginalFilename());
+//				
+//				File savefile = new ClassPathResource("static/img").getFile();
+//				
+//				Path path = Paths.get(savefile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+//				
+//				Files.copy(file.getInputStream(),path ,StandardCopyOption.REPLACE_EXISTING );
+//				
+//				System.out.println("Image is uploaded");
+//				
+//				 
+//				
+//			}
 			
 			
-			
+			contact.setImage("contact.png");
 			contact.setUser(user);
 			user.getContacts().add(contact);
 			
@@ -229,7 +231,7 @@ public class UserController {
 	//update contact handler
 	
 	@RequestMapping(value = "/process-update",method = RequestMethod.POST)
-	public String updateHandler(@ModelAttribute Contact contact,@RequestParam("profileImage")MultipartFile file,
+	public String updateHandler(@ModelAttribute Contact contact,
 			Model m,HttpSession session,Principal principal) {
 		
 		
@@ -238,28 +240,28 @@ public class UserController {
 			Contact oldContactDetail = this.contactRepository.findById(contact.getcId()).get();
 			
 			//image
-			if(!file.isEmpty()) {
-				
-				//delete old photo
-				File deleteFile = new ClassPathResource("static/img").getFile();
-				File file1=new File(deleteFile,oldContactDetail.getImage());
-				file1.delete();
-				
-				
-				//update new photo
-				
-				File savefile = new ClassPathResource("static/img").getFile();
-				
-				Path path = Paths.get(savefile.getAbsolutePath()+File.separator+file.getOriginalFilename());
-				
-				Files.copy(file.getInputStream(),path ,StandardCopyOption.REPLACE_EXISTING );
-				
-				contact.setImage(file.getOriginalFilename());
-				
-			}else {
-				contact.setImage(oldContactDetail.getImage());
-			}
-			
+//			if(!file.isEmpty()) {
+//				
+//				//delete old photo
+//				File deleteFile = new ClassPathResource("static/img").getFile();
+//				File file1=new File(deleteFile,oldContactDetail.getImage());
+//				file1.delete();
+//				
+//				
+//				//update new photo
+//				
+//				File savefile = new ClassPathResource("static/img").getFile();
+//				
+//				Path path = Paths.get(savefile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+//				
+//				Files.copy(file.getInputStream(),path ,StandardCopyOption.REPLACE_EXISTING );
+//				
+//				contact.setImage(file.getOriginalFilename());
+//				
+//			}else {
+//				contact.setImage(oldContactDetail.getImage());
+//			}
+			contact.setImage(oldContactDetail.getImage());
 			User user = this.userRepository.getUserByUserName(principal.getName());
 			contact.setUser(user);
 			this.contactRepository.save(contact);

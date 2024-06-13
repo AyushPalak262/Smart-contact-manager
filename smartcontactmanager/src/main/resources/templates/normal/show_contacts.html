@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymleaf.org" th:replace="normal/base::layout(~{::section})">
+<html lang="en" xmlns:th="//http:www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
 <head>
 	<meta charset="UTF-8" />
-	<title>Show contacs</title>
+	<title>Show contacts</title>
 </head>
 <body>
 	<section>
@@ -11,44 +11,61 @@
 			<div class="card-body">
 				<h1 class="text-center">Your Contacts</h1>
 				
-				<table class="table">
-					  <thead>
-					    <tr>
-					      <th scope="col">#ID</th>
-					      <th scope="col">Name</th>
-					      <th scope="col">Email</th>
-					      <th scope="col">Phone</th>
-					      <th scope="col">Action</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  
-					    <tr th:each="c : ${contacts}">
-					      <th scope="row" th:text="${'SCMUSER'+c.cId}"></th>
-					      <td >
-					       
-					       <img class="my_profile_picture" alt="profile photo" src="" th:src="@{'/img/'+${c.image}}">
-					      
-					      <a href="#" th:href="@{'/user/'+${c.cId}+'/contact'}" >
-					      	<span th:text="${c.name}"></span>
-					      </a>
-					      </td>
-					      <td th:text="${c.email}"></td>
-					      <td th:text="${c.phone}"></td>
-					      <td>
-					      <a th:href="@{'/user/delete/'+${c.cId}}" class="btn btn-danger btn-sm">Delete</a>
-					     
-					     
-					      <form method="POST"  th:action="@{'/user/update-contact/'+${c.cId}}" class="mt-2">
-					      	<button type="submit" class="btn btn-primary btn-sm">Update</button>
-					      </form>
-					      </td>
-					    </tr>
-					    
-					    
-					    
-					  </tbody>
-					</table>
+				<!-- search -->
+				
+				<div class="search-container my-3">
+				
+				<input onkeyup="search()" id="search-input" type="text" class="form-control" placeholder="Search your contacts" />
+					
+					<div class="search-result">
+						
+						<!-- result comes here -->
+						
+					
+					</div>
+				
+				</div>
+				
+				<div class="table-responsive">
+					<table class="table table-hover">
+						  <thead>
+						    <tr>
+						      <th scope="col">#ID</th>
+						      <th scope="col">Name</th>
+						      <th scope="col">Email</th>
+						      <th scope="col">Phone</th>
+						      <th scope="col">Action</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  
+						    <tr th:each="c : ${contacts}">
+						      <th scope="row" th:text="${'SCMUSER'+c.cId}"></th>
+						      <td >
+						       
+						       <img class="my_profile_picture" alt="profile photo" src="" th:src="@{'/img/'+${c.image}}">
+						      
+						      <a href="#" th:href="@{'/user/'+${c.cId}+'/contact'}" >
+						      	<span th:text="${c.name}"></span>
+						      </a>
+						      </td>
+						      <td th:text="${c.email}"></td>
+						      <td th:text="${c.phone}"></td>
+						      <td>
+						      <a th:href="@{'/user/delete/'+${c.cId}}" class="btn btn-danger btn-sm">Delete</a>
+						     
+						     
+						      <form method="POST"  th:action="@{'/user/update-contact/'+${c.cId}}" class="mt-2">
+						      	<button type="submit" class="btn btn-primary btn-sm">Update</button>
+						      </form>
+						      </td>
+						    </tr>
+						    
+						    
+						    
+						  </tbody>
+						</table>
+					</div>
 					
 		<!-- Pagination part -->
 					

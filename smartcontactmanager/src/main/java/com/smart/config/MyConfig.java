@@ -26,6 +26,8 @@ public class MyConfig{
 	}
 	
 	
+	
+	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		
@@ -50,8 +52,15 @@ public class MyConfig{
 		.and().formLogin()
 		.loginPage("/signin")
 		.loginProcessingUrl("/dologin")
-		.defaultSuccessUrl("/user/index");
+		.defaultSuccessUrl("/user/index").and()
+		.logout().deleteCookies("remember-me").permitAll()
+		.and().rememberMe().tokenValiditySeconds(120);
+		
+		
 		//.failureUrl("/login-fail"); 
+		
+		
+		
 		 
 		
 		return http.build();

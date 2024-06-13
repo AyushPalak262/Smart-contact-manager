@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymleaf.org" th:replace="normal/base::layout(~{::section})">
+<html lang="en" xmlns:th="//http:www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+
 <head>
 	<meta charset="UTF-8" />
 	<title>This is Home Page</title>
@@ -46,7 +47,7 @@
 												
 										</div>
 									</div>
-									<input required type="text" id="SecondName" name="secondName" placeholder="Enter Nick Name here" class="form-control"/>
+									<input  type="text" id="SecondName" name="secondName" placeholder="Enter Nick Name here" class="form-control"/>
 								</div>
 								
 								<!-- This is phone field -->
@@ -74,7 +75,7 @@
 												
 										</div>
 									</div>
-									<input required type="email" id="email" name="email" placeholder="Enter email id here" class="form-control"/>
+									<input  type="email" id="email" name="email" placeholder="Enter email id here" class="form-control"/>
 								</div>
 								
 								<!-- This is work field -->
@@ -88,7 +89,7 @@
 												
 										</div>
 									</div>
-									<input required type="text" id="work" name="work" placeholder="Enter work here" class="form-control"/>
+									<input  type="text" id="work" name="work" placeholder="Enter work here" class="form-control"/>
 								</div>
 								
 								<!-- This is contact Description -->
@@ -99,10 +100,10 @@
 									
 								</div>
 								
-								<!-- Contact image -->
+								<!-- Contact image 
 								<div class="custom-file">
 									<input type="file" name="profileImage"/>
-								</div>
+								</div>-->
 								
 								<!-- Save Button  -->
 								
